@@ -1,0 +1,7 @@
+linux_amd64:
+  build:
+    image: pedge/goyaml2json
+    dockerfile: Dockerfile
+  environment:
+    GOOS: linux
+    GOARCH: amd64
