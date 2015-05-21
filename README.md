@@ -18,7 +18,7 @@ func do() error {
 	if err != nil {
 		return err
 	}
-	jsonData, err := yaml2json.Transform(yamlData, yaml2json.TransformOptions{Pretty: pretty})
+	jsonData, err := yaml2json.Transform(yamlData, yaml2json.TransformOptions{Pretty: true})
 	if err != nil {
 		return err
 	}
