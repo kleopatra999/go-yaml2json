@@ -1,5 +1,7 @@
 /*
 Package yaml2json provides functionality to transform YAML to JSON.
+
+See the README at https://github.com/peter-edge/go-yaml2json/blob/master/README.md for more details.
 */
 package yaml2json
 
@@ -11,8 +13,21 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
+const (
+	defaultIndent = "\t"
+)
+
+// TransformOptions are the options to pass to Transform
+type TransformOptions struct {
+	// Pretty says to output the JSON with json.MarshalIndent.
+	Pretty bool
+	// Indent is the string to use for indenting. This only applies
+	// if Pretty is set. The default is "\t".
+	Indent string
+}
+
 // Transform transforms an YAML input and transforms it to JSON.
-func Transform(p []byte) ([]byte, error) {
+func Transform(p []byte, options TransformOptions) ([]byte, error) {
 	var yamlData interface{}
 	if err := yaml.Unmarshal(p, &yamlData); err != nil {
 		return nil, err
@@ -20,6 +35,12 @@ func Transform(p []byte) ([]byte, error) {
 	jsonData, err := transform(yamlData)
 	if err != nil {
 		return nil, err
+	}
+	if options.Pretty {
+		if options.Indent != "" {
+			return json.MarshalIndent(jsonData, "", options.Indent)
+		}
+		return json.MarshalIndent(jsonData, "", defaultIndent)
 	}
 	return json.Marshal(jsonData)
 }

@@ -7,6 +7,7 @@
 	updatetestdeps \
 	generate \
 	build \
+	install \
 	lint \
 	vet \
 	errcheck \
@@ -34,6 +35,9 @@ updatetestdeps:
 
 build: deps
 	go build ./...
+
+install: deps
+	go install ./...
 
 lint: testdeps
 	go get -v github.com/golang/lint/golint
