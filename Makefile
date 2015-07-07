@@ -1,25 +1,19 @@
 .PHONY: \
 	all \
-	precommit \
 	deps \
 	updatedeps \
 	testdeps \
 	updatetestdeps \
-	generate \
 	build \
-	install \
 	lint \
 	vet \
 	errcheck \
 	pretest \
 	test \
-	checkjet \
-	jet \
-	clean \
+	cov \
+	clean
 
 all: test
-
-precommit: test jet
 
 deps:
 	go get -d -v ./...
@@ -41,7 +35,7 @@ install: deps
 
 lint: testdeps
 	go get -v github.com/golang/lint/golint
-	golint ./...
+	golint ./.
 
 vet: testdeps
 	go get -v golang.org/x/tools/cmd/vet
@@ -53,17 +47,13 @@ errcheck: testdeps
 
 pretest: lint vet errcheck
 
-test: pretest
+test: testdeps pretest
 	go test -test.v ./...
 
-checkjet:
-	@ if ! which jet > /dev/null; then \
-			echo "error: jet not installed" >&2; \
-			exit 1; \
-	  fi
-
-jet: checkjet
-	jet steps
+cov: testdeps
+	go get -v github.com/axw/gocov/gocov
+	go get golang.org/x/tools/cmd/cover
+	gocov test | gocov report
 
 clean:
-	go clean ./...
+	go clean -i ./...

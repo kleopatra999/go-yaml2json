@@ -20,8 +20,8 @@ func TestFilesEqual(t *testing.T) {
 }
 
 func testFileEqual(t *testing.T, i int) {
-	yamlData := testReadData(t, fmt.Sprintf("_test/%d.yml", i))
-	expectedJSONData := testRemarshalJSON(t, testReadData(t, fmt.Sprintf("_test/%d.json", i)), i)
+	yamlData := testReadData(t, fmt.Sprintf("_testdata/%d.yml", i))
+	expectedJSONData := testRemarshalJSON(t, testReadData(t, fmt.Sprintf("_testdata/%d.json", i)), i)
 	jsonData, err := Transform(yamlData, TransformOptions{})
 	if err != nil {
 		t.Fatalf("transform error for file %d: %v", i, err)
