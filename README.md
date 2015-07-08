@@ -26,8 +26,7 @@ func do() error {
 }
 ```
 
-There is also a command-line tool at [cmd/yaml2json](cmd/yaml2json) that reads a YAML file from stdin
-and outputs a JSON file to stdout. Run `make install` or `go get -v github.com/peter-edge/go-yaml2json/cmd/yaml2json`
-to install.
+There is also a command-line tool at [cmd/yaml2json](cmd/yaml2json) that reads a YAML file from stdin and outputs
+a JSON file to stdout. Run `make install` or `go get -v github.com/peter-edge/go-yaml2json/cmd/yaml2json` to install.
 
 Originally inspired by https://github.com/bronze1man/yaml2json.
